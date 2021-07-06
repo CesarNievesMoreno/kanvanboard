@@ -1,7 +1,7 @@
 <div class="mt-20 layout-column justify-content-center align-items-center">
     <section class="mt-50 layout-row align-items-center justify-content-center">
-      <input id="create-task-input" type="text" class="large" placeholder="New task name" data-test-id="create-task-input"/>
-      <button type="submit" class="ml-30" data-test-id="create-task-button">Create task</button>
+      <input id="create-task-input" [(ngModel)]="task.name" type="text" class="large" placeholder="New task name" data-test-id="create-task-input"/>
+      <button (click)="addTask()" type="submit" class="ml-30" data-test-id="create-task-button">Create task</button>
     </section>
 
     <div class="mt-50 layout-row">
@@ -14,17 +14,21 @@
                   <span [attr.data-test-id]="generateTestId(task.name)+ '-name'">{{task.name}}</span>
                   <div class="icons">
                     <button class="icon-only x-small mx-2"
-                            [attr.data-test-id]="generateTestId(task.name)+ '-back'">
+                            [attr.data-test-id]="generateTestId(task.name)+ '-back'"
+                             (click)="moveBack(task)"
+                             [disabled]="task.stage == 0">
                       <i class="material-icons">arrow_back</i>
                     </button>
 
                     <button class="icon-only x-small mx-2"
-                            [attr.data-test-id]="generateTestId(task.name)+ '-forward'">
+                            [attr.data-test-id]="generateTestId(task.name)+ '-forward'" 
+                            (click)="moveForward(task)"
+                            [disabled]="task.stage == 3">
                       <i class="material-icons">arrow_forward</i>
                     </button>
 
                     <button class="icon-only danger x-small mx-2"
-                            [attr.data-test-id]="generateTestId(task.name)+ '-delete'">
+                            [attr.data-test-id]="generateTestId(task.name)+ '-delete'" (click)="deleteTask(task)">
                       <i class="material-icons">delete</i>
                     </button>
                   </div>
